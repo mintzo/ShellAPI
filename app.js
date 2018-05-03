@@ -3,7 +3,7 @@ var app = require('express')()
 module.exports = app
 
 var config = {
-  appRoot: __dirname // required config
+  appRoot: __dirname
 }
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
