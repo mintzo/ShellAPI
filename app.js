@@ -1,7 +1,8 @@
 var SwaggerExpress = require('swagger-express-mw')
 const addRequestId = require('express-request-id')()
-
-var app = require('express')()
+const express = require('express')
+const app = express()
+const documentation = require('./documentation')
 app.use(addRequestId)
 
 module.exports = app
@@ -13,8 +14,9 @@ var config = {
 
 SwaggerExpress.create(config, function (err, swaggerExpress) {
   if (err) { throw err }
-  
+
   swaggerExpress.register(app)
+  documentation.attachSwaggerUI(app)
 
   var port = process.env.PORT || 10010
   app.listen(port)

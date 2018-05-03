@@ -10,7 +10,9 @@
   "dependencies": {
     "express": "^4.12.3",
     "express-request-id": "^1.4.0",
+    "fs-extra": "^6.0.0",
     "swagger-express-mw": "^0.1.0",
+    "swagger-ui-dist": "^3.14.0",
     "winston": "^3.0.0-rc5"
   },
   "devDependencies": {
@@ -22,9 +24,9 @@
     "supertest": "^1.0.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "NODE_ENV=production node app.js",
     "test": "mocha",
-    "preformanceTest":"NODE_ENV=production node app.js & artillery run ./test/preformanceTests/artillery.yml",
+    "preformanceTest": "NODE_ENV=production node app.js & artillery run ./test/preformanceTests/artillery.yml",
     "dev": "swagger project start"
   }
 }
