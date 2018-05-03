@@ -12,12 +12,14 @@
     "swagger-express-mw": "^0.1.0"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1",
     "should": "^7.1.0",
     "supertest": "^1.0.0"
   },
   "scripts": {
     "start": "node app.js",
-    "test": "swagger project test",
+    "test": "mocha",
     "dev": "swagger project start"
   }
 }

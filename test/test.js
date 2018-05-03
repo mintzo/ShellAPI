@@ -1,0 +1,1 @@
+require('./commandsTests/echo/echo.test')
