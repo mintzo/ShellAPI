@@ -1,0 +1,17 @@
+version: '3'
+services:
+  shell-api:
+    container_name: shellapi
+    build: 
+      context: ./
+      dockerfile: prod.dockerfile
+    ports:
+      - "10011:10010"
+    volumes:
+      - ./:/server
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
