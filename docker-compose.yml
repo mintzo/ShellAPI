@@ -6,7 +6,7 @@ services:
       context: ./
       dockerfile: prod.dockerfile
     ports:
-      - "10011:10010"
+      - "3000:10010"
     volumes:
       - ./:/server
     deploy:
