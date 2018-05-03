@@ -7,5 +7,3 @@ module.exports.echo = ({ messageToEcho }) => {
         else { reject(errorMessages.missingMessage) }
     })
 }
-
-

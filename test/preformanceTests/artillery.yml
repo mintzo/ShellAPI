@@ -1,0 +1,20 @@
+config:
+  target: "http://localhost:10010/apiV1"
+  phases:
+    - duration: 60
+      arrivalRate: 10
+      rampTo: 50
+      name: "Warm up the application"
+    - duration: 60
+      arrivalRate: 50
+      name: "Sustained max load"
+  payload:
+      path: "./echoCommands.csv"
+      fields:
+        - "command"
+scenarios:
+  - flow:
+      - post:
+          url: "/command/echo"
+          json:
+            message: "{{ command }}"
