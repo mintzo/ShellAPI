@@ -1,7 +1,7 @@
 ShellAPI
 ========
 
-Shell Api Server, can echo you messages
+Shell Api Server, running echo and grep like a boss
 ### API routes are currently at V1, and available under /apiV1/
 Install
 -------
@@ -25,7 +25,7 @@ Running
 
 Usage And Documentation
 -----------------------
-after running the server goto `localhost:3000/` ( or `localhost:10010/` , without docker-compose )
+after running the server goto `localhost:10010/` ( or `localhost:3000/` , with docker-compose, note testing the api works only on 10010 )
 
 the servers API documentation will be loaded via swagger UI
 
@@ -41,7 +41,11 @@ the server is structure by node-swagger framework.
 
 - route code found in `/api/controllers`
 - swagger file can be found in `/api/swagger/swagger.yaml`
-
+- folder that contains file to run commands on is `/filesToUseCommandsOn/`, currently contains these files 
+    - file1.txt
+    - file2.txt
+    - file3.txt
+    - emptyFile.txt
 
 
 Running Tests
