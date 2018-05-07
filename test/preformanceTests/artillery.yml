@@ -9,12 +9,17 @@ config:
       arrivalRate: 50
       name: "Sustained max load"
   payload:
-      path: "./echoCommands.csv"
+      path: "./commands.csv"
       fields:
-        - "command"
+        - "echoCommand"
+        - "grepCommand"
 scenarios:
   - flow:
       - post:
           url: "/command/echo"
           json:
-            message: "{{ command }}"
+            message: "{{ echoCommand }}"
+      - post:
+          url: "/command/grep"
+          json:
+            searchPhrase: "{{ grepCommand }}"
