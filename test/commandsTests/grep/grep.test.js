@@ -35,7 +35,7 @@ describe('Grep Command', function () {
     })
     describe('Penetration Tests', function () {
         it('should ignore command injections', async () => {
-            let commandInjections = ['pwd','a; pwd', 'a && pwd', 'a ;&& pwd', 'a & pwd', 'a ;& pwd','a | pwd','pwd || pwd','pwd$%^&*(@,./; pwd']
+            let commandInjections = ['pwd', 'a; pwd', 'a && pwd', 'a ;&& pwd', 'a & pwd', 'a ;& pwd', 'a | pwd', 'pwd || pwd', 'pwd$%^&*(@,./; pwd']
             let searchPhrase = 'ama; pwd', filesDirectory = `${__dirname}/../../sampleFilesToTestCommandsOn`, filesToSearch = ['file1.txt']
             commandInjections.forEach(async (searchPhrase) => expect(await grepCommand({ searchPhrase, filesDirectory, filesToSearch })).to.equal('\n'))
         })
@@ -48,6 +48,8 @@ describe('Grep Command', function () {
             expect(await grepCommand({ searchPhrase, filesDirectory, filesToSearch })).to.equal('this file is amazing\n')
             searchPhrase = 'amazing'
             expect(await grepCommand({ searchPhrase, filesDirectory, filesToSearch })).to.equal('this file is amazing\n')
+            searchPhrase = 'testing'
+            expect(await grepCommand({ searchPhrase, filesDirectory, filesToSearch })).to.equal('testing with file\n')
         })
         it('should return empty results', async () => {
             let searchPhrase = 'am32a', filesDirectory = `${__dirname}/../../sampleFilesToTestCommandsOn`, filesToSearch = ['file1.txt']
@@ -65,6 +67,15 @@ describe('Grep Command', function () {
             searchPhrase = 'testing'
             expect(await grepCommand({ searchPhrase, filesDirectory, filesToSearch }))
                 .to.equal('file1.txt:testing with file\nfile2.txt:testing with file\nfile3.txt:testing with file\n')
+        })
+        it('should run grep on all files', async () => {
+            let searchPhrase = 'ama', filesDirectory = `${__dirname}/../../sampleFilesToTestCommandsOn`, filesToSearch = []
+            expect(await grepCommand({ searchPhrase, filesDirectory, filesToSearch })).to.equal('file1.txt:this file is amazing\n')
+            searchPhrase = 'use'
+            expect(await grepCommand({ searchPhrase, filesDirectory, filesToSearch })).to.equal('file2.txt:dont use it\n')
+            searchPhrase = 'testing'
+            expect(await grepCommand({ searchPhrase, filesDirectory, filesToSearch }))
+                .to.equal('file1.txt:testing with file\nfile3.txt:testing with file\nfile2.txt:testing with file\n')
         })
     })
 })

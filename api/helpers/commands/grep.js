@@ -53,9 +53,13 @@ module.exports.grep = ({ searchPhrase, filesToSearch, filesDirectory }) => {
         if (areTheInputParametersValid.valid == false) { reject(areTheInputParametersValid.error) }
         else {
             try {
+                let searchAllFilesInDirectory = (filesToSearch.length === 0)
+                let options = searchAllFilesInDirectory ?
+                    `'${escapeString(searchPhrase)}' -R ${filesDirectory}` :
+                    `'${escapeString(searchPhrase)}' ${filesToSearch.reduce((files, file) => `${files} ${filesDirectory}/${file}`, '')}`
                 let commandOutput = await runShellCommand({
                     shellCommandToRun: 'grep',
-                    options: `'${escapeString(searchPhrase)}' ${filesToSearch.reduce((files, file) => `${files} ${filesDirectory}/${file}`, '')}`
+                    options
                 })
                 if (filesToSearch.length == 1) { resolve(commandOutput) }
                 else {

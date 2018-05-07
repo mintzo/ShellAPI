@@ -50,7 +50,6 @@ paths:
           in: body
           schema:
             $ref: "#/definitions/GrepCommand"
-
       responses:
         "200":
           description: Success
@@ -64,7 +63,6 @@ paths:
 definitions:
   GrepCommand:
     required:
-      - filesToSearch
       - searchPhrase
     properties:
       searchPhrase:
@@ -73,7 +71,7 @@ definitions:
         minLength: 1
         maxLength: 100
       filesToSearch:
-        description: the files to search in
+        description: the files to search in, if left undefined then all avalible files will be used in the grep
         type: array
         minLength: 1
         maxLength: 10
