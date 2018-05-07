@@ -33,6 +33,13 @@ describe('Grep Command', function () {
             await expect(grepCommand({ filesToSearch: ['d', 's'], filesDirectory: 's', searchPhrase: 'test' })).to.eventually.rejectedWith(errorMessages.missingFile(['d', 's']))
         })
     })
+    describe('Penetration Tests', function () {
+        it('should ignore command injections', async () => {
+            let commandInjections = ['pwd','a; pwd', 'a && pwd', 'a ;&& pwd', 'a & pwd', 'a ;& pwd','a | pwd','pwd || pwd','pwd$%^&*(@,./; pwd']
+            let searchPhrase = 'ama; pwd', filesDirectory = `${__dirname}/../../sampleFilesToTestCommandsOn`, filesToSearch = ['file1.txt']
+            commandInjections.forEach(async (searchPhrase) => expect(await grepCommand({ searchPhrase, filesDirectory, filesToSearch })).to.equal('\n'))
+        })
+    })
     describe('Basic tests', function () {
         it('should run grep on files', async () => {
             let searchPhrase = 'ama', filesDirectory = `${__dirname}/../../sampleFilesToTestCommandsOn`, filesToSearch = ['file1.txt']
