@@ -39,8 +39,50 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+            
+  /command/grep:
+    x-swagger-router-controller: commands
+    post:
+      description: text search files using grep like options, receive matching acurences 
+      operationId: grepCommand
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: "#/definitions/GrepCommand"
+
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/CommandOutputResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
 
 definitions:
+  GrepCommand:
+    required:
+      - filesToSearch
+      - searchPhrase
+    properties:
+      searchPhrase:
+        description: the prase to search for in the file or files
+        type: string
+        minLength: 1
+        maxLength: 100
+      filesToSearch:
+        description: the files to search in
+        type: array
+        minLength: 1
+        maxLength: 10
+        items:
+          description: the file name to search in
+          type: string
+          minLength: 1
+          maxLength: 30
+        
   CommandOutputResponse:
     required:
       - output
