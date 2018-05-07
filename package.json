@@ -8,6 +8,7 @@
   "license": "",
   "main": "app.js",
   "dependencies": {
+    "child-process-promise": "^2.2.1",
     "express": "^4.12.3",
     "express-request-id": "^1.4.0",
     "fs-extra": "^6.0.0",
